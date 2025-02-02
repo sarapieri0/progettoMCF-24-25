@@ -142,8 +142,8 @@ elif conf == 2:
 
 
     fig, ax = plt.subplots(1, 2, figsize=(10, 8))
-    n, bins, p = ax[0].hist(E_fin3, bins=int(np.sqrt(nP)), color='teal', alpha=0.7)
-    ax[0].plot(bincenters3, yfit2, color='tomato', label='fit')
+    n, bins, p = ax[0].hist(E_fin2, bins=int(np.sqrt(nP)), color='teal', alpha=0.7)
+    ax[0].plot(bincenters2, yfit2, color='tomato', label='fit')
     ax[0].set_xlabel('Energia finale', fontsize=16)
     ax[0].legend()
     n, bins, p = ax[1].hist(E_fin2, bins=int(np.sqrt(nP)), color='teal', alpha=0.7)
@@ -171,7 +171,6 @@ elif conf == 3:
     step0 = 1.1
     
     zero = np.zeros(N)
-    passi = np.linspace(0, N, N)
     E_fin3 = np.empty(0)
 
     fig, ax = plt.subplots(figsize=(11, 8))
@@ -180,14 +179,17 @@ elif conf == 3:
     for i in range(nP):
         (path, mas, step) = rw_accelerazione(step0, N, x0, g, xmax, b)
         plt.plot(path, marker='+', alpha=0.3)
-        E_fin3 = np.append(E_fin3, step)  # riempo un array con le energie finali delle particelle
+        E_fin3 = np.append(E_fin3, step)
     plt.plot(mas, color='tomato', label='xmax')
     plt.grid()
     plt.xlabel('passi')
     plt.ylabel(r'$\Delta x$')
     plt.show()
 
+
     # STUDIO DISTRIBUZIONE DEL PASSO FINALE
+
+    
     E_fin3 = abs(E_fin3)
     E_fin3.sort()
 

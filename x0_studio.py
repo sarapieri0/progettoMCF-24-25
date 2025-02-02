@@ -25,7 +25,7 @@ a_arr=np.empty(0)
 a_arr_err=np.empty(0)
 E_arr=np.empty(0)
 chir_arr=np.empty(0)
-x=np.linspace(-15,20, n_iter)
+x=np.linspace(-19,20, n_iter)
 
 for i in range(n_iter):
     x0 = int(x[i])

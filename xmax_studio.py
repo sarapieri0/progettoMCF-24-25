@@ -7,7 +7,7 @@ from modulo_rw import rw_accelerazione
 
 def spettro(E, a, K, B):
     return K*E**(-a) + B
-n_iter=10
+n_iter=5
 
 graf=input('Visualizzare i grafici delle {:} simulazioni della seconda configurazione? (2 x {:}) \ny/n: '.format(n_iter, n_iter))
 
@@ -16,7 +16,7 @@ graf=input('Visualizzare i grafici delle {:} simulazioni della seconda configura
 nP = 200
 N = 120
 g = 1.09
-xmax_a=np.linspace(10,50, n_iter)
+xmax_a=np.linspace(10,60, n_iter)
 b_a=xmax_a/(2*N)
 
 a_arr=np.empty(0)
@@ -50,7 +50,7 @@ for i in range(n_iter):
     plt.ylabel(r'$\Delta x$')
     if(graf=='y'):
         plt.show()
-    elif(graf=='no'):
+    else:
         plt.close(fig)
 
     # STUDIO DISTRIBUZIONE DEL PASSO FINALE di ciascuna delle configurazioni al variare dei parametri
@@ -75,6 +75,16 @@ for i in range(n_iter):
     )
     yfit3 = spettro(bincenters3, par3[0], par3[1], par3[2])
 
+    print('\na={:} +- {:}'.format(np.around(par3[0], 3), np.around(np.sqrt(pcov3.diagonal()[0]), 3)))
+    #print('K={:} +- {:}'.format(np.around(par3[1], 3), np.around(np.sqrt(pcov3.diagonal()[1]), 3)))
+   # print('B={:} +- {:}'.format(np.around(par3[2], 3), np.around(np.sqrt(pcov3.diagonal()[2]), 3)))
+
+    chi = np.sum(((yfit3 - n3) / np.sqrt(n3)) ** 2)
+    chir = chi / (len(bincenters3) - 3)
+    #print('Chi2: ', chi)
+    print('Chi2 ridotto: ', np.around(chir, 3))
+    print('Energia più alta raggiunta: ', np.around(E_fin3[len(E_fin3)-1], 3))
+    
     if(graf=='y'):
         fig, ax = plt.subplots(1, 2, figsize=(10, 8))
         n, bins, p = ax[0].hist(E_fin3, bins=int(np.sqrt(nP)), color='teal', alpha=0.7)
@@ -89,15 +99,7 @@ for i in range(n_iter):
         ax[1].set_yscale('log')
         plt.show()
 
-    print('\na={:} +- {:}'.format(np.around(par3[0], 3), np.around(np.sqrt(pcov3.diagonal()[0]), 3)))
-    #print('K={:} +- {:}'.format(np.around(par3[1], 3), np.around(np.sqrt(pcov3.diagonal()[1]), 3)))
-   # print('B={:} +- {:}'.format(np.around(par3[2], 3), np.around(np.sqrt(pcov3.diagonal()[2]), 3)))
-
-    chi = np.sum(((yfit3 - n3) / np.sqrt(n3)) ** 2)
-    chir = chi / (len(bincenters3) - 3)
-    #print('Chi2: ', chi)
-    print('Chi2 ridotto: ', np.around(chir, 3))
-    print('Energia più alta raggiunta: ', np.around(E_fin3[len(E_fin3)-1], 3))
+    
 
     
     a_arr=np.append(a_arr, par3[0])
@@ -113,7 +115,7 @@ E_arr = np.around(E_arr, 3)
 a_arr = np.around(a_arr, 3)
 chir_arr = np.around(chir_arr, 3)
 
-print(f"{'X_max':<10}{'b':<10}{'E finali':<15}{'a':<10}{'chi ridotti':<10}")
+print(f"{'X_max':<10}{'b':<10}{'E finale':<15}{'a':<10}{'Chi2 ridotti':<10}")
 print("-" * 55)
 for xmax, b, E, a, chir in zip(xmax_arr, b_arr, E_arr, a_arr, chir_arr):
     print(f"{xmax:<10}{b:<10}{E:<15}{a:<10}{chir:<10}")
@@ -152,7 +154,7 @@ nP = 200
 N = 120
 g = 1.09
     
-xmax_a=np.linspace(10,50, n_iter)
+xmax_a=np.linspace(10,60, n_iter)
 b_a=xmax_a/(2*N)
 
 a_arr=np.empty(0)
@@ -184,7 +186,7 @@ for i in range(n_iter):
     plt.ylabel(r'$\Delta x$')
     if(graf=='y'):
         plt.show()
-    elif(graf=='no'):
+    else:
         plt.close(fig)
 
     # STUDIO DISTRIBUZIONE DEL PASSO FINALE di ciascuna delle configurazioni al variare dei parametri
@@ -209,6 +211,16 @@ for i in range(n_iter):
     )
     yfit3 = spettro(bincenters3, par3[0], par3[1], par3[2])
     
+    print('\na={:} +- {:}'.format(np.around(par3[0], 3), np.around(np.sqrt(pcov3.diagonal()[0]), 3)))
+    #print('K={:} +- {:}'.format(np.around(par3[1], 3), np.around(np.sqrt(pcov3.diagonal()[1]), 3)))
+   # print('B={:} +- {:}'.format(np.around(par3[2], 3), np.around(np.sqrt(pcov3.diagonal()[2]), 3)))
+
+    chi = np.sum(((yfit3 - n3) / np.sqrt(n3)) ** 2)
+    chir = chi / (len(bincenters3) - 3)
+    #print('Chi2: ', chi)
+    print('Chi2 ridotto: ', np.around(chir, 3))
+    print('Energia più alta raggiunta: ', np.around(E_fin3[len(E_fin3)-1], 3))
+    
     if(graf=='y'):
         fig, ax = plt.subplots(1, 2, figsize=(10, 8))
         n, bins, p = ax[0].hist(E_fin3, bins=int(np.sqrt(nP)), color='teal', alpha=0.7)
@@ -223,15 +235,7 @@ for i in range(n_iter):
         ax[1].set_yscale('log')
         plt.show()
     
-    print('\na={:} +- {:}'.format(np.around(par3[0], 3), np.around(np.sqrt(pcov3.diagonal()[0]), 3)))
-    #print('K={:} +- {:}'.format(np.around(par3[1], 3), np.around(np.sqrt(pcov3.diagonal()[1]), 3)))
-   # print('B={:} +- {:}'.format(np.around(par3[2], 3), np.around(np.sqrt(pcov3.diagonal()[2]), 3)))
-
-    chi = np.sum(((yfit3 - n3) / np.sqrt(n3)) ** 2)
-    chir = chi / (len(bincenters3) - 3)
-    #print('Chi2: ', chi)
-    print('Chi2 ridotto: ', np.around(chir, 3))
-    print('Energia più alta raggiunta: ', np.around(E_fin3[len(E_fin3)-1], 3))
+    
    
 
     a_arr=np.append(a_arr, par3[0])
@@ -248,7 +252,7 @@ a_arr = np.around(a_arr, 3)
 chir_arr = np.around(chir_arr, 3)
 
 
-print(f"{'X_max':<10}{'b':<10}{'E finale maxx':<15}{'a':<10}{'Chi2 ridotti':<10}")
+print(f"{'X_max':<10}{'b':<10}{'E finale':<15}{'a':<10}{'Chi2 ridotti':<10}")
 print("-" * 60)
 for xmax, b, E, a, chir in zip(xmax_arr, b_arr, E_arr, a_arr, chir_arr):
     print(f"{xmax:<10}{b:<10}{E:<15}{a:<10}{chir:<10}")
